@@ -2,6 +2,7 @@ package com.fitness.activityservice.service;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -10,11 +11,13 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import java.util.Objects;
 
 @Service
+@Slf4j
 @RequiredArgsConstructor
 public class UserValidateService {
     private final WebClient userServiceWebClient;
 
     public boolean validateUser(String userId){
+        log.info("Calling User Validation API for userId: {}",userId);
         try{
             return Objects.equals(Boolean.TRUE, userServiceWebClient.get()
                     .uri("/api/users/{userId}/validate", userId)
